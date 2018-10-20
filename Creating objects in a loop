@@ -1,0 +1,32 @@
+# Create multiple objects using a for loop 
+# author: lauyn
+# date created: 20 October 2018
+
+# General syntax for using assign() to create multiple objects using a for loop
+
+for (thing in some_list) { 
+  assign(name_of_object, value_you_want_to_assign_to_object)
+}
+
+some_list = an iterable object that you want to iterate over
+thing = an iteration
+assign() is the function that assigns values to objects
+name_of_object = the name of the object (you can use paste0() to create a name that relates to each iteration of the iterable object)
+value_you_want_to_assign_to_object = the value you will assign to the object at each iteration
+
+
+# Example
+# download the past 15 years of monthly dividend adjusted prices
+
+# import dependencies
+library(tseries)                                                        # this library has a function to download stock prices
+
+# information we want to download
+stocks = c('MMM', 'AES', 'AAPL', 'BA', 'KO', 'GS', 'JNJ', 'MCD')        # create iterable object to iterate over
+start="2003-10-01"; freq = 'm'; quote = 'Adjusted'                      # parameter values
+
+
+# download data for all the stocks
+for (stock in stocks) { 
+  assign(stock, get.hist.quote(stock, start=start, quote = quote,retclass="zoo",compression=freq))
+}
